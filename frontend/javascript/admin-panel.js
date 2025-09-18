@@ -43,7 +43,7 @@ async function loadAdminData() {
         <td data-label="Home Address"><span>${s.homeAddress || '-'}</span></td>
         <td data-label="Teacher Salary"><span>${s.teacherSalary || '-'}</span></td>
         <td data-label="Action">
-            <button onclick="deleteStudent(${s.id})">Delete</button>
+            <button onclick="deleteStudent('${s._id}')">Delete</button>
         </td>
             </tr>
         `).join('');
@@ -62,7 +62,7 @@ async function loadAdminData() {
                 <td data-label="Working School"><span>${t.workingSchool || '-'}</span></td>
                 <td data-label="Preferred Location"><span>${t.preferredLocation || '-'}</span></td>
                 <td data-label="Action">
-                    <button onclick="deleteTeacher(${t.id})">Delete</button>
+                    <button onclick="deleteTeacher('${t._id}')">Delete</button>
                 </td>
             </tr>
         `).join('');
@@ -70,13 +70,13 @@ async function loadAdminData() {
         // Populate contact messages table
         document.getElementById('contact-data').innerHTML = contacts.map(c => `
             <tr>
-                <td data-label="ID"><span>${c.id}</span></td>
+                <td data-label="ID"><span>${c._id}</span></td>
                 <td data-label="Name"><span>${c.name}</span></td>
                 <td data-label="Email"><span>${c.email}</span></td>
                 <td data-label="Message"><span>${c.message}</span></td>
-                <td data-label="Date"><span>${new Date(c.created_at).toLocaleString()}</span></td>
+                <td data-label="Date"><span>${new Date(c.createdAt).toLocaleString()}</span></td>
                 <td data-label="Action">
-                    <button onclick="deleteContactMessage(${c.id})">Delete</button>
+                    <button onclick="deleteContactMessage('${c._id}')">Delete</button>
                 </td>
             </tr>
         `).join('');
@@ -163,64 +163,4 @@ async function deleteContactMessage(id) {
 }
 
 
-/* ----------------- Admin Password Modal ----------------- */
-const passwordModal = document.getElementById('passwordModal');
-const modalOverlay = document.getElementById('modalOverlay');
-const changePasswordBtn = document.getElementById('changePasswordBtn');
-const closeModalBtn = document.getElementById('closeModal');
-const submitPasswordChangeBtn = document.getElementById('submitPasswordChange');
 
-// Open modal
-changePasswordBtn.addEventListener('click', () => {
-    passwordModal.style.display = 'block';
-    modalOverlay.style.display = 'block';
-});
-
-// Close modal
-closeModalBtn.addEventListener('click', () => {
-    passwordModal.style.display = 'none';
-    modalOverlay.style.display = 'none';
-});
-modalOverlay.addEventListener('click', () => {
-    passwordModal.style.display = 'none';
-    modalOverlay.style.display = 'none';
-});
-
-// Submit password change
-submitPasswordChangeBtn.addEventListener('click', async () => {
-    const oldPassword = document.getElementById('oldPassword').value.trim();
-    const newPassword = document.getElementById('newPassword').value.trim();
-
-    if(!oldPassword || !newPassword){
-        alert('Please enter both old and new passwords');
-        return;
-    }
-
-    const token = sessionStorage.getItem('adminToken');
-
-    try {
-        const res = await fetch('http://localhost:3000/api/admin/change-password', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + token
-            },
-            body: JSON.stringify({ oldPassword, newPassword })
-        });
-
-        const data = await res.json();
-        if(res.ok){
-            alert(data.message);
-            document.getElementById('oldPassword').value = '';
-            document.getElementById('newPassword').value = '';
-            // Close modal after success
-            passwordModal.style.display = 'none';
-            modalOverlay.style.display = 'none';
-        } else {
-            alert(data.message || 'Error changing password');
-        }
-    } catch(err) {
-        console.error(err);
-        alert('Server error');
-    }
-});

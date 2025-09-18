@@ -304,61 +304,126 @@ table th {
   }
 }
 
-/* ================= Change Password Button & Modal ================= */
+/* ================= CHANGE PASSWORD BUTTON ================= */
 #changePasswordBtn {
-  display: block;
-  margin: 10px auto;
-  padding: 10px 20px;
-  background: #42a5f5;
-  color: white;
+  width: 100%;
+  padding: 0.8rem 1rem;
+  margin: 1rem 0;
   border: none;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #42a5f5, #1e88e5);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
-  border-radius: 5px;
-  font-size: 16px;
+  transition: all 0.3s ease;
 }
 
+#changePasswordBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(30,136,229,0.4);
+}
+
+/* ================= ERROR MESSAGE ================= */
+.error-msg {
+  display: none; /* Initially hidden */
+  margin-top: 1rem;
+  color: #721c24;
+  background: #f8d7da;
+  padding: 0.6rem;
+  border-radius: 6px;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ================= MODAL OVERLAY ================= */
+#modalOverlay {
+  display: none; /* Initially hidden */
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.5);
+  z-index: 999;
+  transition: opacity 0.3s ease-in-out;
+}
+
+/* ================= CHANGE PASSWORD MODAL ================= */
 #passwordModal {
-  display: none;
+  display: none; /* Initially hidden */
   position: fixed;
   top: 50%; left: 50%;
   transform: translate(-50%, -50%);
-  background: white;
-  padding: 20px;
-  width: 300px;
-  border-radius: 10px;
-  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-  z-index: 1001; /* above overlay */
+  background: #fff;
+  padding: 2rem 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+  width: 400px;
+  max-width: 90%;
+  text-align: center;
+  z-index: 1000;
+  animation: scaleIn 0.3s ease-in-out;
 }
 
-#modalOverlay {
-  display: none;
-  position: fixed;
-  top:0; left:0; right:0; bottom:0;
-  background: rgba(0,0,0,0.5);
-  z-index: 1000;
+@keyframes scaleIn {
+  from { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+  to { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+
+#passwordModal h3 {
+  margin-bottom: 1.5rem;
+  color: #1e3a8a;
+  font-size: 20px;
+  font-weight: 600;
 }
 
 #passwordModal input {
-  width: 100%;
-  padding: 8px;
-  margin-bottom: 10px;
-  border-radius: 5px;
+  width: 90%;
+  padding: 0.8rem;
+  margin: 0.6rem 0;
+  border-radius: 8px;
   border: 1px solid #ccc;
+  font-size: 1rem;
+  outline: none;
+  transition: border 0.3s;
+}
+
+#passwordModal input:focus {
+  border-color: #42a5f5;
 }
 
 #passwordModal button {
-  padding: 8px 15px;
-  border: none;
-  border-radius: 5px;
+  width: 95%;
+  padding: 0.8rem;
+  margin: 0.5rem 0;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 500;
   cursor: pointer;
-  margin-right: 5px;
+  border: none;
+  transition: all 0.3s ease;
 }
 
 #submitPasswordChange {
-  background: #42a5f5;
+  background: linear-gradient(90deg, #42a5f5, #1e88e5);
   color: white;
 }
 
-#closeModal {
-  background: #ccc;
+#submitPasswordChange:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(30,136,229,0.4);
 }
+
+#closeModal {
+  background: #e0e0e0;
+  color: #333;
+}
+
+#closeModal:hover {
+  background: #bdbdbd;
+  transform: translateY(-1px);
+}
+

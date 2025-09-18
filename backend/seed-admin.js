@@ -1,19 +1,23 @@
-// seed-admin.js
 require('dotenv').config();
 const bcrypt = require('bcryptjs');
-const pool = require('./db');
+const connectDB = require('./db');
+const Admin = require('./models/Admin');
 
 (async () => {
   try {
-    const username = 'admin';   // apna username set karo
-    const password = 'Pratik@#912299'; // apna password set karo
+    await connectDB();
+
+    const username = 'admin';
+    const password = 'admin123';
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    await pool.query(
-      'INSERT INTO admins (username, password_hash) VALUES (?, ?)',
-      [username, hashedPassword]
-    );
+    const admin = new Admin({
+      username,
+      password_hash: hashedPassword
+    });
+
+    await admin.save();
 
     console.log('✅ Admin user created successfully!');
     process.exit(0);
