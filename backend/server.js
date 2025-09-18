@@ -1,22 +1,261 @@
 require('dotenv').config();
 const express = require('express');
-const connectDB = require('./db'); // MongoDB connection
+const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cors = require('cors');
-
-// Import Mongoose models
-const Student = require('./models/Student');
-const Teacher = require('./models/Teacher');
-const Admin = require('./models/Admin');
-const ContactMessage = require('./models/ContactMessage');
-const Assessment = require('./models/Assessment');
 
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Connect to MongoDB
+// ==================== DATABASE CONNECTION ====================
+const connectDB = async () => {
+  try {
+    const mongoURI = process.env.MONGODB_URI || 'mongodb://localhost:27017/tuition_db';
+
+    await mongoose.connect(mongoURI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+
+    console.log('✅ MongoDB connected successfully');
+  } catch (error) {
+    console.error('❌ MongoDB connection error:', error.message);
+    process.exit(1);
+  }
+};
+
+// ==================== MONGOOSE MODELS ====================
+// Admin Model
+const adminSchema = new mongoose.Schema({
+  username: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true
+  },
+  password_hash: {
+    type: String,
+    required: true
+  }
+}, {
+  timestamps: true
+});
+
+const Admin = mongoose.model('Admin', adminSchema);
+
+// Student Model
+const studentSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  class: {
+    type: String,
+    required: true
+  },
+  subjects: {
+    type: String,
+    trim: true
+  },
+  phone: {
+    type: String,
+    trim: true
+  },
+  schoolName: {
+    type: String,
+    trim: true
+  },
+  homeAddress: {
+    type: String,
+    trim: true
+  },
+  teacherSalary: {
+    type: Number,
+    min: 0
+  }
+}, {
+  timestamps: true
+});
+
+const Student = mongoose.model('Student', studentSchema);
+
+// Teacher Model
+const teacherSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    trim: true,
+    lowercase: true
+  },
+  subject: {
+    type: String,
+    trim: true
+  },
+  experience: {
+    type: Number,
+    default: 0,
+    min: 0
+  },
+  phone: {
+    type: String,
+    trim: true
+  },
+  address: {
+    type: String,
+    trim: true
+  },
+  qualifications: {
+    type: String,
+    trim: true
+  },
+  classOfTeaching: {
+    type: String,
+    trim: true
+  },
+  workingSchool: {
+    type: String,
+    trim: true
+  },
+  preferredLocation: {
+    type: String,
+    trim: true
+  }
+}, {
+  timestamps: true
+});
+
+const Teacher = mongoose.model('Teacher', teacherSchema);
+
+// Contact Message Model
+const contactMessageSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  email: {
+    type: String,
+    required: true,
+    trim: true,
+    lowercase: true
+  },
+  message: {
+    type: String,
+    required: true,
+    trim: true
+  }
+}, {
+  timestamps: true
+});
+
+const ContactMessage = mongoose.model('ContactMessage', contactMessageSchema);
+
+// Assessment Model
+const submissionSchema = new mongoose.Schema({
+  studentId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Student',
+    required: true
+  },
+  submittedAt: {
+    type: Date,
+    default: Date.now
+  },
+  answers: [{
+    question: String,
+    answer: String
+  }],
+  score: {
+    type: Number,
+    min: 0,
+    max: 100
+  }
+});
+
+const assessmentSchema = new mongoose.Schema({
+  title: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  description: {
+    type: String,
+    trim: true
+  },
+  class: {
+    type: String,
+    required: true
+  },
+  subject: {
+    type: String,
+    required: true
+  },
+  dueDate: {
+    type: Date,
+    required: true
+  },
+  questions: [{
+    question: {
+      type: String,
+      required: true
+    },
+    type: {
+      type: String,
+      enum: ['text', 'multiple-choice', 'true-false'],
+      default: 'text'
+    },
+    options: [String], // For multiple choice
+    correctAnswer: String // For auto-grading
+  }],
+  submissions: [submissionSchema],
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Teacher',
+    required: true
+  }
+}, {
+  timestamps: true
+});
+
+const Assessment = mongoose.model('Assessment', assessmentSchema);
+
+// ==================== ADMIN SEEDING FUNCTION ====================
+const seedAdmin = async () => {
+  try {
+    const username = 'admin';
+    const password = 'admin123';
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const admin = new Admin({
+      username,
+      password_hash: hashedPassword
+    });
+
+    await admin.save();
+
+    console.log('✅ Admin user created successfully!');
+    return true;
+  } catch (err) {
+    if (err.code === 11000) {
+      console.log('ℹ️ Admin user already exists');
+      return true;
+    }
+    console.error('❌ Error creating admin:', err.message);
+    return false;
+  }
+};
+
+// ==================== CONNECT TO DATABASE ====================
 connectDB();
 
 /* ----------------- Middleware: Verify Admin JWT ----------------- */
@@ -315,6 +554,21 @@ app.post('/api/assessments/:id/submit', async (req, res) => {
   } catch (err) {
     console.error("Submit Assessment Error:", err);
     res.status(500).json({ message: 'Server error' });
+  }
+});
+
+/* ----------------- Admin Seeding Route ----------------- */
+app.post('/api/admin/seed', async (req, res) => {
+  try {
+    const success = await seedAdmin();
+    if (success) {
+      res.json({ message: 'Admin seeding completed successfully' });
+    } else {
+      res.status(500).json({ message: 'Admin seeding failed' });
+    }
+  } catch (err) {
+    console.error("Admin Seeding Route Error:", err);
+    res.status(500).json({ message: 'Server error during seeding' });
   }
 });
 
