@@ -52,27 +52,6 @@ app.post('/api/login/admin', async (req, res) => {
   }
 });
 
-/* ----------------- Password Change from Admin Panel ----------------- */
-app.put('/api/admin/change-password', verifyJWT, async (req, res) => {
-  try {
-    const { oldPassword, newPassword } = req.body;
-    const admin = await Admin.findById(req.admin.id);
-    if (!admin) return res.status(404).json({ message: 'Admin not found' });
-
-    const valid = await bcrypt.compare(oldPassword, admin.password_hash);
-    if (!valid) return res.status(401).json({ message: 'Old password incorrect' });
-
-    const hashed = await bcrypt.hash(newPassword, 10);
-    admin.password_hash = hashed;
-    await admin.save();
-
-    res.json({ message: 'Password updated successfully' });
-  } catch (err) {
-    console.error("Change Password Error:", err);
-    res.status(500).json({ message: 'Server error' });
-  }
-});
-
 /* ----------------- Password Change from Login Page (no JWT needed) ----------------- */
 app.put('/api/admin/change-password-login', async (req, res) => {
   try {
@@ -93,6 +72,8 @@ app.put('/api/admin/change-password-login', async (req, res) => {
     res.status(500).json({ message: 'Server error' });
   }
 });
+
+
 
 /* ----------------- Admin Panel APIs ----------------- */
 // Get all students
