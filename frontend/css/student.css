@@ -1,0 +1,175 @@
+/* ===== Teacher Form Title & Subtitle ===== */
+.form-title { 
+    text-align: center; 
+    font-size: 2.5rem;   /* thoda bada kiya */
+    color: #0056b3; 
+    margin-bottom: 1.5rem;
+    font-weight: 900;    /* bold ko strong kiya */
+    letter-spacing: 1px; /* thoda aur prominent */
+}
+
+.form-subtitle {
+    text-align: center;
+    font-size: 1.2rem;   /* thoda bada */
+    color: #004080;      /* slightly darker blue for contrast */
+    margin-bottom: 2rem;
+    font-style: italic;
+    font-weight: 600;    /* bold subtitle */
+}
+
+/* Glass Effect Form Container */
+.form {
+    max-width: 600px;
+    margin: 3rem auto;
+    padding: 2.5rem;
+    background: rgba(255, 255, 255, 0.25);
+    /* transparent white */
+    border-radius: 15px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+    backdrop-filter: blur(18px);
+    /* glass effect */
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    animation: fadeIn 0.9s ease;
+}
+
+/* Input Groups */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.6rem;
+    font-weight: 600;
+    color: #0056b3;
+    font-size: 1rem;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid rgba(0, 86, 179, 0.3);
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: inherit;
+    transition: all 0.3s ease;
+    background: rgba(255, 255, 255, 0.6);
+    color: #333;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #666;
+    font-size: 0.95rem;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.35);
+    background: #fff;
+}
+
+/* Button */
+.btn.primary {
+    display: block;
+    width: 100%;
+    margin-top: 1.5rem;
+    text-align: center;
+    padding: 1rem;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.05rem;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn.primary:hover {
+    background: linear-gradient(135deg, #0056b3, #0041a3);
+    transform: translateY(-3px);
+}
+
+/* Success / Error Message */
+.message {
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    text-align: center;
+    display: none;
+    font-weight: 500;
+}
+
+.message.success {
+    background: #d4edda;
+    color: #155724;
+}
+
+.message.error {
+    background: #f8d7da;
+    color: #721c24;
+}
+
+.form-subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 1.8rem;
+    font-style: italic;
+}
+
+.form-group select {
+    appearance: none;
+    background: rgba(255, 255, 255, 0.6) url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4z' fill='%230056b3'/%3E%3C/svg%3E") no-repeat right 0.75rem center;
+    background-size: 12px;
+    padding-right: 2rem;
+    color: #333;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .form {
+        padding: 2rem;
+        margin: 2rem 1rem;
+    }
+
+    .form-title {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .form {
+        padding: 1.2rem;
+        margin: 1.5rem 1rem;
+    }
+
+    .form-title {
+        font-size: 1.5rem;
+    }
+
+    .btn.primary {
+        font-size: 0.9rem;
+        padding: 0.8rem;
+    }
+}

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher Registration</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/teacher.css">
+  <style>
+    .hint {
+      font-size: 12px;
+      color: #555;
+      margin-top: 3px;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+ <nav class="navbar">
+  <div class="logo">
+    <a href="index.html">
+      <img src="../images/logo3.jpg" alt="HomeTuition Logo" class="logo-img">
+    </a>
+  </div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="student.html">Student</a></li>
+    <li><a href="teacher.html" class="active">Teacher</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="adminlogin.html">Admin</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</nav>
+
+<main>
+  <h2 class="form-title">👨‍🏫 Teacher Registration Form</h2>
+  <p class="form-subtitle">Join our HomeTuition platform and start teaching students in your area.</p>
+
+  <form class="form" id="teacher-form">
+    <!-- Full Name -->
+    <div class="form-group">
+      <label>Full Name</label>
+      <input type="text" id="teacher-name" placeholder="Enter your name" required>
+      <small class="hint">Enter your full name (at least 3 characters)</small>
+    </div>
+
+    <!-- Phone -->
+    <div class="form-group">
+      <label>Phone</label>
+      <input type="text" id="teacher-phone" placeholder="Enter your phone number" required>
+      <small class="hint">10-digit Indian phone number (must start with 6,7,8,9)</small>
+    </div>
+
+    <!-- Email -->
+    <div class="form-group">
+      <label>Email</label>
+      <input type="email" id="teacher-email" placeholder="Enter your email" required>
+      <small class="hint">Enter a valid email (e.g. abc@gmail.com)</small>
+    </div>
+
+    <!-- Address -->
+    <div class="form-group">
+      <label>Address</label>
+      <input type="text" id="teacher-address" placeholder="Enter your address" required>
+      <small class="hint">Enter your complete address</small>
+    </div>
+
+    <!-- Qualifications -->
+    <div class="form-group">
+      <label>Qualifications</label>
+      <input type="text" id="teacher-qualifications" placeholder="Enter your qualifications" required>
+      <small class="hint">Example: B.Sc, M.Sc, B.Ed etc.</small>
+    </div>
+
+    <!-- Subject of Teaching -->
+    <div class="form-group">
+      <label>Subject of Teaching</label>
+      <input type="text" id="teacher-subject" placeholder="Enter subject you teach" required>
+      <small class="hint">Example: Math, Physics, English</small>
+    </div>
+
+    <!-- Experience -->
+    <div class="form-group">
+      <label>Experience (years)</label>
+      <input type="number" id="teacher-experience" placeholder="Enter years of experience" required>
+      <small class="hint">Enter number of years (0 if fresher)</small>
+    </div>
+
+    <!-- Class of Teaching -->
+    <div class="form-group">
+      <label>Class of Teaching</label>
+      <input type="text" id="teacher-class" placeholder="Enter class you teach" required>
+      <small class="hint">Example: Class 6-10 or Class 11-12</small>
+    </div>
+
+    <!-- Working in any school -->
+    <div class="form-group">
+      <label>Working in any school</label>
+      <input type="text" id="teacher-school" placeholder="Enter school name if working" required>
+      <small class="hint">Enter school name (or write "No" if not working)</small>
+    </div>
+
+    <!-- Preferred Location -->
+    <div class="form-group">
+      <label>Preferred Location for Teaching (Patna)</label>
+      <select id="teacher-area" required>
+        <option value="">-- Select Area --</option>
+        <option value="Boring Road">Boring Road</option>
+        <option value="Kankarbagh">Kankarbagh</option>
+        <option value="Patliputra">Patliputra</option>
+        <option value="Rajendra Nagar">Rajendra Nagar</option>
+        <option value="Fraser Road">Fraser Road</option>
+        <option value="Ashok Rajpath">Ashok Rajpath</option>
+        <option value="Gandhi Maidan">Gandhi Maidan</option>
+        <option value="Bailey Road">Bailey Road</option>
+        <option value="Digha">Digha</option>
+        <option value="Anisabad">Anisabad</option>
+        <option value="Phulwari Sharif">Phulwari Sharif</option>
+        <option value="Danapur">Danapur</option>
+        <option value="Saguna More">Saguna More</option>
+        <option value="Other">Other</option>
+      </select>
+      <small class="hint">Choose your preferred area for teaching</small>
+    </div>
+
+    <button type="submit" class="btn primary">Register</button>
+    <div id="form-message" class="message"></div>
+  </form>
+</main>
+
+<footer>
+  <p>© 2025 HomeTuition | Made with ❤️</p>
+</footer>
+
+<script>
+  document.getElementById('teacher-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('teacher-name').value.trim();
+    const phone = document.getElementById('teacher-phone').value.trim();
+    const email = document.getElementById('teacher-email').value.trim();
+    const address = document.getElementById('teacher-address').value.trim();
+    const qualifications = document.getElementById('teacher-qualifications').value.trim();
+    const subject = document.getElementById('teacher-subject').value.trim();
+    const experience = parseInt(document.getElementById('teacher-experience').value) || 0;
+    const classOfTeaching = document.getElementById('teacher-class').value.trim();
+    const workingSchool = document.getElementById('teacher-school').value.trim();
+    const preferredLocation = document.getElementById('teacher-area').value;
+
+    // VALIDATION
+    if (name.length < 3) {
+      alert("Name must be at least 3 characters long.");
+      return;
+    }
+    if (!/^[6-9]\d{9}$/.test(phone)) {
+      alert("Enter a valid 10-digit Indian phone number.");
+      return;
+    }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      alert("Enter a valid email address.");
+      return;
+    }
+    if (address.length < 5) {
+      alert("Address must be at least 5 characters long.");
+      return;
+    }
+    if (qualifications.length < 2) {
+      alert("Please enter valid qualifications.");
+      return;
+    }
+    if (subject.length < 2) {
+      alert("Please enter a valid subject.");
+      return;
+    }
+    if (experience < 0) {
+      alert("Experience cannot be negative.");
+      return;
+    }
+    if (classOfTeaching.length < 1) {
+      alert("Please enter the class you teach.");
+      return;
+    }
+    if (workingSchool.length < 2) {
+      alert("Enter valid school name or write 'No'.");
+      return;
+    }
+    if (!preferredLocation) {
+      alert("Please select a preferred teaching location.");
+      return;
+    }
+
+    const data = {
+      name, phone, email, address, qualifications, subject,
+      experience, classOfTeaching, workingSchool, preferredLocation
+    };
+
+    try {
+      const res = await fetch('http://localhost:3000/api/register/teacher', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const json = await res.json();
+      if (res.ok) {
+        alert(json.message);
+        e.target.reset();
+      } else {
+        alert(json.message || 'Error registering teacher');
+      }
+    } catch (err) {
+      console.error(err);
+      alert('Server error');
+    }
+  });
+</script>
+
+<script src="../javascript/script.js"></script>
+</body>
+</html>

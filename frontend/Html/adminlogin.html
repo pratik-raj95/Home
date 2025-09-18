@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login</title>
+  <link rel="stylesheet" href="../css/style.css"> <!-- Main styles -->
+  <link rel="stylesheet" href="../css/admin.css"> <!-- Admin specific styles -->
+
+  
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">
+      <a href="index.html"><img src="../images/logo3.jpg" alt="True Learning Logo" class="logo-img"></a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="student.html">Student</a></li>
+      <li><a href="teacher.html">Teacher</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="adminlogin.html">Admin</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+
+  <!-- Admin Login -->
+  <div class="admin-login-container">
+    <h2>Admin Login</h2>
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button id="login-btn">Login</button>
+
+    <button id="changePasswordBtn">Change Password</button>
+
+    <div class="error-msg" id="error-msg" style="display:none;">Invalid credentials!</div>
+  </div>
+
+  <!-- Modal Overlay -->
+  <div id="modalOverlay"></div>
+
+  <!-- Change Password Modal -->
+  <div id="passwordModal">
+    <h3>Change Password</h3>
+    <input type="password" id="oldPassword" placeholder="Old Password">
+    <input type="password" id="newPassword" placeholder="New Password">
+    <button id="submitPasswordChange">Submit</button>
+    <button id="closeModal">Cancel</button>
+  </div>
+
+  <!-- Scripts -->
+  <script src="../javascript/script.js"></script> <!-- For toggleMenu() -->
+  <script>
+    const loginBtn = document.getElementById('login-btn');
+    const changePasswordBtn = document.getElementById('changePasswordBtn');
+    const passwordModal = document.getElementById('passwordModal');
+    const modalOverlay = document.getElementById('modalOverlay');
+    const closeModal = document.getElementById('closeModal');
+    const submitPasswordChange = document.getElementById('submitPasswordChange');
+
+    // Show modal on button click
+    changePasswordBtn.addEventListener('click', () => {
+      passwordModal.style.display = 'block';
+      modalOverlay.style.display = 'block';
+    });
+
+    // Close modal
+    closeModal.addEventListener('click', () => {
+      passwordModal.style.display = 'none';
+      modalOverlay.style.display = 'none';
+    });
+
+    modalOverlay.addEventListener('click', () => {
+      passwordModal.style.display = 'none';
+      modalOverlay.style.display = 'none';
+    });
+
+    // Handle admin login
+    loginBtn.addEventListener('click', async () => {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const error = document.getElementById('error-msg');
+
+      if (!username || !password) {
+        error.textContent = 'Username and password required!';
+        error.style.display = 'block';
+        setTimeout(() => { error.style.display = 'none'; }, 3000);
+        return;
+      }
+
+      try {
+        const res = await fetch('http://localhost:3000/api/login/admin', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, password })
+        });
+        const data = await res.json();
+        if (res.ok && data.token) {
+          sessionStorage.setItem('adminToken', data.token);
+          window.location.href = 'adminpanel.html';
+        } else {
+          error.textContent = data.message || 'Invalid credentials!';
+          error.style.display = 'block';
+          setTimeout(() => { error.style.display = 'none'; }, 3000);
+        }
+      } catch (err) {
+        console.error(err);
+        error.textContent = 'Server error. Try again!';
+        error.style.display = 'block';
+        setTimeout(() => { error.style.display = 'none'; }, 3000);
+      }
+    });
+
+    // Handle Change Password submission
+    submitPasswordChange.addEventListener('click', async () => {
+      const username = document.getElementById('username').value.trim();
+      const oldPassword = document.getElementById('oldPassword').value.trim();
+      const newPassword = document.getElementById('newPassword').value.trim();
+
+      if (!username || !oldPassword || !newPassword) {
+        alert('Username, old and new password are required!');
+        return;
+      }
+
+      try {
+        const res = await fetch('http://localhost:3000/api/admin/change-password-login', {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ username, oldPassword, newPassword })
+        });
+        const data = await res.json();
+        if(res.ok){
+          alert(data.message);
+          passwordModal.style.display = 'none';
+          modalOverlay.style.display = 'none';
+        } else {
+          alert(data.message || 'Error changing password');
+        }
+      } catch(err){
+        console.error(err);
+        alert('Server error');
+      }
+    });
+
+
+    // Hamburger Menu Toggle
+function toggleMenu() {
+  const navLinks = document.querySelector('.nav-links');
+  const hamburger = document.querySelector('.hamburger');
+
+  if(navLinks && hamburger){
+    navLinks.classList.toggle('active');  // menu slide in/out
+    hamburger.classList.toggle('open');   // hamburger animation
+  }
+}
+
+
+    
+  </script>
+ 
+
+</body>
+</html>

@@ -1,0 +1,364 @@
+/* ================= RESET ================= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+/* ================= NAVBAR ================= */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  color: #1e3a8a;
+  padding: 1rem 2rem;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo-img {
+  height: 40px;
+  width: auto;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  transition: right 0.4s ease;
+}
+
+.nav-links a {
+  color: #1e3a8a;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.nav-links a:hover {
+  color: #f97316;
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 4px;
+  z-index: 1100; /* make sure it's above nav-links */
+}
+
+.hamburger span {
+  width: 25px;
+  height: 3px;
+  background: #1e3a8a;
+  border-radius: 3px;
+  transition: all 0.3s;
+}
+
+.hamburger.open span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.open span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    position: fixed;
+    top: 70px;
+    right: -100%;
+    width: 60%;
+    height: 100vh;
+    background: #ffffff;
+    flex-direction: column;
+    gap: 2rem;
+    padding-top: 2rem;
+    z-index: 1000;
+  }
+
+  .nav-links.active {
+    right: 0;
+  }
+
+  .nav-links a {
+    color: #000000;
+    font-size: 1.2rem;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+}
+
+/* ================= ADMIN LOGIN ================= */
+.admin-login-container {
+  max-width: 400px;
+  margin: 12vh auto;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.admin-login-container h2 {
+  margin-bottom: 1.5rem;
+  color: #1e3a8a;
+}
+
+.admin-login-container input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+}
+
+.admin-login-container button {
+  width: 100%;
+  padding: 0.8rem 1.5rem;
+  background: #2563eb;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.admin-login-container button:hover {
+  background: #1e40af;
+}
+
+.error-msg {
+  display: none;
+  margin-top: 1rem;
+  color: #721c24;
+  background: #f8d7da;
+  padding: 0.6rem;
+  border-radius: 6px;
+}
+
+/* ================= ADMIN PANEL ================= */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1e3a8a;
+  color: #fff;
+  padding: 1rem 2rem;
+}
+
+header h1 {
+  font-size: 1.5rem;
+}
+
+header button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 6px;
+  background: #f97316;
+  color: #fff;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+header button:hover {
+  background: #ea580c;
+}
+
+main {
+  padding: 2rem;
+}
+
+section {
+  margin-bottom: 2rem;
+}
+
+section h2 {
+  margin-bottom: 1rem;
+  color: #2563eb;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+table th, table td {
+  padding: 0.8rem 1rem;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+table th {
+  background: #2563eb;
+  color: #fff;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+  .admin-login-container {
+    width: 90%;
+    padding: 1.5rem;
+    margin: 15vh auto;
+  }
+
+  table th, table td {
+    font-size: 0.9rem;
+  }
+
+  .nav-links {
+    width: 100%;
+  }
+}
+
+/* --- Mobile Card Layout --- */
+@media (max-width: 768px) {
+  table, thead, tbody, th, tr {
+    display: block;
+  }
+
+  thead { display: none; }
+  tr { display: none; }
+
+  tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    counter-reset: card-num;
+  }
+
+  tbody tr {
+    display: block;
+    background: #fff;
+    border-radius: 12px;
+    padding: 16px 14px 14px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+    position: relative;
+  }
+
+  tbody tr::before {
+    counter-increment: card-num;
+    content: "Member " counter(card-num);
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #f97316;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: bold;
+    padding: 4px 12px;
+    border-radius: 20px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.25);
+  }
+
+  td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+    padding: 8px 0;
+    font-size: 0.9rem;
+    border-bottom: 1px dashed #ddd;
+  }
+
+  td:last-child {
+    border-bottom: none;
+  }
+
+  td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    color: #1e3a8a;
+    margin-right: 10px;
+    flex-basis: 40%;
+    text-align: left;
+  }
+
+  td span {
+    flex-basis: 60%;
+    text-align: right;
+    color: #444;
+  }
+}
+
+/* ================= Change Password Button & Modal ================= */
+#changePasswordBtn {
+  display: block;
+  margin: 10px auto;
+  padding: 10px 20px;
+  background: #42a5f5;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+#passwordModal {
+  display: none;
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  background: white;
+  padding: 20px;
+  width: 300px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  z-index: 1001; /* above overlay */
+}
+
+#modalOverlay {
+  display: none;
+  position: fixed;
+  top:0; left:0; right:0; bottom:0;
+  background: rgba(0,0,0,0.5);
+  z-index: 1000;
+}
+
+#passwordModal input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+#passwordModal button {
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 5px;
+}
+
+#submitPasswordChange {
+  background: #42a5f5;
+  color: white;
+}
+
+#closeModal {
+  background: #ccc;
+}
