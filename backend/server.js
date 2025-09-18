@@ -318,5 +318,6 @@ app.post('/api/assessments/:id/submit', async (req, res) => {
   }
 });
 
-/* ----------------- Server Start ----------------- */
-app.listen(3000, () => console.log('✅ Server running on port 3000'));
+// ----------------- Server Start -----------------
+const PORT = process.env.PORT || 3000; // Use dynamic port for hosting
+app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
