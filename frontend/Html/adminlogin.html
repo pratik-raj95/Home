@@ -46,6 +46,7 @@
   <!-- Change Password Modal -->
   <div id="passwordModal">
     <h3>Change Password</h3>
+    <input type="text" id="changeUsername" placeholder="Username">
     <input type="password" id="oldPassword" placeholder="Old Password">
     <input type="password" id="newPassword" placeholder="New Password">
     <button id="submitPasswordChange">Submit</button>
@@ -117,7 +118,7 @@
 
     // Handle Change Password submission
     submitPasswordChange.addEventListener('click', async () => {
-      const username = document.getElementById('username').value.trim();
+      const username = document.getElementById('changeUsername').value.trim();
       const oldPassword = document.getElementById('oldPassword').value.trim();
       const newPassword = document.getElementById('newPassword').value.trim();
 
