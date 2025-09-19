@@ -433,3 +433,90 @@ footer {
     height: 100px;
   }
 }
+
+/* ========== ANIMATIONS ========== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Text Animations for About Page */
+.about-hero h1 {
+  animation: fadeInUp 1s ease-out 0.2s both;
+  opacity: 0;
+}
+
+.about-hero p {
+  animation: fadeInUp 1s ease-out 0.4s both;
+  opacity: 0;
+}
+
+.mission h2 {
+  animation: fadeInLeft 1s ease-out 0.6s both;
+  opacity: 0;
+}
+
+.mission p {
+  animation: fadeInUp 1s ease-out 0.8s both;
+  opacity: 0;
+}
+
+.vision h2 {
+  animation: fadeInRight 1s ease-out 0.6s both;
+  opacity: 0;
+}
+
+.vision p {
+  animation: fadeInUp 1s ease-out 0.8s both;
+  opacity: 0;
+}
+
+.owner-highlight h2 {
+  animation: fadeInUp 1s ease-out 0.6s both;
+  opacity: 0;
+}
+
+.owner-info h3 {
+  animation: fadeInLeft 1s ease-out 0.8s both;
+  opacity: 0;
+}
+
+.owner-info p {
+  animation: fadeInUp 1s ease-out 1s both;
+  opacity: 0;
+}
+
+.team h2 {
+  animation: fadeInRight 1s ease-out 0.6s both;
+  opacity: 0;
+}
+
+.team-member h3 {
+  animation: fadeInUp 1s ease-out 0.8s both;
+  opacity: 0;
+}
+
+.team-member p {
+  animation: fadeInUp 1s ease-out 1s both;
+  opacity: 0;
+}
+
+.gallery h2 {
+  animation: fadeInUp 1s ease-out 0.6s both;
+  opacity: 0;
+}
+
+footer p {
+  animation: fadeInUp 1s ease-out 1.2s both;
+  opacity: 0;
+}

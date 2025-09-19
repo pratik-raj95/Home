@@ -427,3 +427,45 @@ table th {
   transform: translateY(-1px);
 }
 
+/* ========== ANIMATIONS ========== */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInLeft {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes fadeInRight {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Text Animations for Admin Pages */
+.admin-login-container h2 {
+  animation: fadeInUp 1s ease-out 0.2s both;
+  opacity: 0;
+}
+
+header h1 {
+  animation: fadeInUp 1s ease-out 0.2s both;
+  opacity: 0;
+}
+
+section h2 {
+  animation: fadeInLeft 1s ease-out 0.4s both;
+  opacity: 0;
+}
+
+table th {
+  animation: fadeInUp 1s ease-out 0.6s both;
+  opacity: 0;
+}
+
+#passwordModal h3 {
+  animation: fadeInUp 1s ease-out 0.2s both;
+  opacity: 0;
+}
+
