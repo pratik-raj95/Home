@@ -572,6 +572,12 @@ app.post('/api/admin/seed', async (req, res) => {
   }
 });
 
-// ----------------- Server Start -----------------
+/* ----------------- Server Start ----------------- */
+
+// Optional: Test root URL
+app.get('/', (req, res) => {
+  res.send('Backend is running!');
+});
+
 const PORT = process.env.PORT || 3000; // Use dynamic port for hosting
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
