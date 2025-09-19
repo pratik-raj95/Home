@@ -137,7 +137,7 @@
     const data = { name, phone, className, schoolName, homeAddress, subjects, teacherSalary };
 
     try {
-      const res = await fetch('http://localhost:3000/api/register/student', {
+      const res = await fetch('https://home-tuition-truelearning-2hcl.onrender.com/api/register/student', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)

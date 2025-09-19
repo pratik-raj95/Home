@@ -572,12 +572,40 @@ app.post('/api/admin/seed', async (req, res) => {
   }
 });
 
-/* ----------------- Server Start ----------------- */
+/* ----------------- STATIC FILE SERVING & SPA ROUTING ----------------- */
 
-// Optional: Test root URL
-app.get('/', (req, res) => {
-  res.send('Backend is running!');
+// Serve static files from frontend directory
+const path = require('path');
+const frontendPath = path.join(__dirname, '../frontend');
+
+// Serve static files (CSS, JS, images, etc.)
+app.use(express.static(frontendPath));
+
+// SPA fallback middleware - handle client-side routing for non-API routes
+app.use((req, res, next) => {
+  // Skip API routes - let them be handled by specific route handlers
+  if (req.path.startsWith('/api/')) {
+    return next(); // Continue to API routes
+  }
+
+  // For all other routes (SPA routes), serve the main index.html
+  // This enables client-side routing for React/Vue/Angular apps
+  res.sendFile(path.join(frontendPath, 'Html', 'index.html'), (err) => {
+    if (err) {
+      console.error('Error serving index.html:', err);
+      res.status(500).send('Error loading page');
+    }
+  });
 });
 
-const PORT = process.env.PORT || 3000; // Use dynamic port for hosting
-app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
+/* ----------------- SERVER STARTUP ----------------- */
+
+// Use dynamic port for Render deployment (Render provides PORT env var)
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
+  console.log(`📁 Serving frontend from: ${frontendPath}`);
+  console.log(`🌐 Frontend URL: http://localhost:${PORT}`);
+  console.log(`🔗 API endpoints available at: http://localhost:${PORT}/api/...`);
+});

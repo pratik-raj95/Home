@@ -1,3 +1,6 @@
+// Configuration for API base URL
+const API_BASE_URL = 'https://home-tuition-truelearning-2hcl.onrender.com';
+
 // Check if admin token exists, else redirect to login
 if (!sessionStorage.getItem("adminToken")) {
     window.location.href = "adminlogin.html";
@@ -19,16 +22,25 @@ async function loadAdminData() {
 
     try {
         const [students, teachers, contacts] = await Promise.all([
-            fetch('http://localhost:3000/api/admin/students', {
-                headers: { Authorization: 'Bearer ' + token }
+            fetch(`${API_BASE_URL}/api/admin/students`, {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                }
             }).then(res => res.ok ? res.json() : Promise.reject(res)),
 
-            fetch('http://localhost:3000/api/admin/teachers', {
-                headers: { Authorization: 'Bearer ' + token }
+            fetch(`${API_BASE_URL}/api/admin/teachers`, {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                }
             }).then(res => res.ok ? res.json() : Promise.reject(res)),
 
-            fetch('http://localhost:3000/api/admin/contact-messages', {
-                headers: { Authorization: 'Bearer ' + token }
+            fetch(`${API_BASE_URL}/api/admin/contact-messages`, {
+                headers: {
+                    'Authorization': 'Bearer ' + token,
+                    'Content-Type': 'application/json'
+                }
             }).then(res => res.ok ? res.json() : Promise.reject(res))
         ]);
 
@@ -95,9 +107,12 @@ async function deleteStudent(id) {
 
     const token = sessionStorage.getItem('adminToken');
     try {
-        const res = await fetch(`http://localhost:3000/api/admin/student/delete/${id}`, {
+        const res = await fetch(`${API_BASE_URL}/api/admin/student/delete/${id}`, {
             method: 'DELETE',
-            headers: { Authorization: 'Bearer ' + token }
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            }
         });
         const data = await res.json();
         if(res.ok){
@@ -118,9 +133,12 @@ async function deleteTeacher(id) {
 
     const token = sessionStorage.getItem('adminToken');
     try {
-        const res = await fetch(`http://localhost:3000/api/admin/teacher/delete/${id}`, {
+        const res = await fetch(`${API_BASE_URL}/api/admin/teacher/delete/${id}`, {
             method: 'DELETE',
-            headers: { Authorization: 'Bearer ' + token }
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            }
         });
         const data = await res.json();
         if(res.ok){
@@ -145,9 +163,12 @@ async function deleteContactMessage(id) {
 
     const token = sessionStorage.getItem('adminToken');
     try {
-        const res = await fetch(`http://localhost:3000/api/admin/contact-message/delete/${id}`, {
+        const res = await fetch(`${API_BASE_URL}/api/admin/contact-message/delete/${id}`, {
             method: 'DELETE',
-            headers: { Authorization: 'Bearer ' + token }
+            headers: {
+                'Authorization': 'Bearer ' + token,
+                'Content-Type': 'application/json'
+            }
         });
         const data = await res.json();
         if(res.ok){
