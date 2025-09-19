@@ -5,6 +5,17 @@ function toggleMenu() {
   hamburger.classList.toggle('open');
 }
 
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', function(event) {
+    // Prevent default navigation to allow SPA-like behavior or custom handling
+    event.preventDefault();
+    const href = this.getAttribute('href');
+    if (href) {
+      window.location.href = href;
+    }
+  });
+});
+
 async function showMessage(event) {
   event.preventDefault();
   const msg = document.getElementById('form-message');

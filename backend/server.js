@@ -588,12 +588,17 @@ app.use((req, res, next) => {
     return next(); // Continue to API routes
   }
 
-  // For all other routes (SPA routes), serve the main index.html
-  // This enables client-side routing for React/Vue/Angular apps
-  res.sendFile(path.join(frontendPath, 'Html', 'index.html'), (err) => {
+  // For all other routes (SPA routes), serve the requested HTML file if it exists
+  const requestedPath = path.join(frontendPath, 'Html', req.path);
+  res.sendFile(requestedPath, (err) => {
     if (err) {
-      console.error('Error serving index.html:', err);
-      res.status(500).send('Error loading page');
+      // If file not found, fallback to index.html
+      if (err.code === 'ENOENT') {
+        res.sendFile(path.join(frontendPath, 'Html', 'index.html'));
+      } else {
+        console.error('Error serving file:', err);
+        res.status(500).send('Error loading page');
+      }
     }
   });
 });
