@@ -581,6 +581,8 @@ const frontendPath = path.join(__dirname, '../frontend');
 // Serve static files (CSS, JS, images, etc.)
 app.use(express.static(frontendPath));
 
+const fs = require('fs');
+
 // SPA fallback middleware - handle client-side routing for non-API routes
 app.use((req, res, next) => {
   // Skip API routes - let them be handled by specific route handlers
@@ -589,16 +591,20 @@ app.use((req, res, next) => {
   }
 
   // For all other routes (SPA routes), serve the requested HTML file if it exists
-  const requestedPath = path.join(frontendPath, 'Html', req.path);
-  res.sendFile(requestedPath, (err) => {
-    if (err) {
+  let requestedPath = path.join(frontendPath, 'Html', req.path);
+
+  // If the path doesn't end with .html, try adding .html extension
+  if (!req.path.endsWith('.html')) {
+    requestedPath = path.join(frontendPath, 'Html', req.path + '.html');
+  }
+
+  // Check if requested file exists and is a file
+  fs.stat(requestedPath, (err, stats) => {
+    if (!err && stats.isFile()) {
+      res.sendFile(requestedPath);
+    } else {
       // If file not found, fallback to index.html
-      if (err.code === 'ENOENT') {
-        res.sendFile(path.join(frontendPath, 'Html', 'index.html'));
-      } else {
-        console.error('Error serving file:', err);
-        res.status(500).send('Error loading page');
-      }
+      res.sendFile(path.join(frontendPath, 'Html', 'index.html'));
     }
   });
 });
