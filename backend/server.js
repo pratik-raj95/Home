@@ -575,12 +575,32 @@ app.post('/api/admin/seed', async (req, res) => {
 // Serve static files from frontend directory
 const path = require('path');
 const frontendPath = path.join(__dirname, '../frontend');
+const fs = require('fs');
 
 // Serve static files (CSS, JS, images, etc.) FIRST
 app.use(express.static(frontendPath));
 
+// HTML file serving middleware - handle specific HTML file requests
+app.get('/:page', (req, res, next) => {
+  const page = req.params.page;
+
+  // Check if it's a request for an HTML file
+  if (page.endsWith('.html') || ['about', 'student', 'teacher', 'contact', 'adminlogin', 'adminpanel'].includes(page)) {
+    const fileName = page.endsWith('.html') ? page : `${page}.html`;
+    const filePath = path.join(frontendPath, 'Html', fileName);
+
+    // Check if the file exists
+    if (fs.existsSync(filePath)) {
+      return res.sendFile(filePath);
+    }
+  }
+
+  // Continue to next middleware if not an HTML file request
+  next();
+});
+
 // SPA fallback middleware - handle client-side routing for non-API routes
-// This should come AFTER static file serving
+// This should come AFTER static file serving and HTML file handling
 app.use((req, res, next) => {
   // Skip API routes - let them be handled by specific route handlers
   if (req.path.startsWith('/api/')) {
