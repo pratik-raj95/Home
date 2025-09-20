@@ -1,149 +1,241 @@
-/* ===== Teacher Form Title & Subtitle ===== */
-.form-title { 
-    text-align: center; 
-    font-size: 2.5rem;   /* thoda bada kiya */
-    color: #0056b3; 
-    margin-bottom: 1.5rem;
-    font-weight: 900;    /* bold ko strong kiya */
-    letter-spacing: 1px; /* thoda aur prominent */
+/* ===== Enhanced Teacher Form Additions ===== */
+
+/* Professional Gradient Background */
+body {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Enhanced Form Title */
+.form-title {
+    text-align: center;
+    font-size: 2.8rem;
+    background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    animation: titleGlow 3s ease-in-out infinite alternate;
 }
 
 .form-subtitle {
     text-align: center;
-    font-size: 1.2rem;   /* thoda bada */
-    color: #004080;      /* slightly darker blue for contrast */
+    font-size: 1.3rem;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 2.5rem;
+    font-weight: 500;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+/* Progress Indicator */
+.progress-container {
+    display: flex;
+    justify-content: center;
     margin-bottom: 2rem;
-    font-style: italic;
-    font-weight: 600;    /* bold subtitle */
 }
 
-
-/* Glass Effect Form Container */
-.form { 
-    max-width: 600px; 
-    margin: 3rem auto; 
-    padding: 2.5rem; 
-    background: rgba(255, 255, 255, 0.25);   /* transparent white */
-    border-radius: 15px; 
-    box-shadow: 0 8px 30px rgba(0,0,0,0.15);
-    backdrop-filter: blur(18px);             /* glass effect */
-    -webkit-backdrop-filter: blur(18px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    animation: fadeIn 0.9s ease;
+.progress-bar {
+    display: flex;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 25px;
+    padding: 4px;
+    gap: 4px;
 }
 
-/* Input Groups */
-.form-group { 
-    margin-bottom: 1.5rem; 
+.progress-step {
+    width: 40px;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    transition: all 0.3s ease;
 }
 
-.form-group label { 
-    display: block; 
-    margin-bottom: 0.6rem; 
-    font-weight: 600; 
-    color: #0056b3;
+.progress-step.active {
+    background: #3498db;
+    box-shadow: 0 0 10px rgba(52, 152, 219, 0.8);
+}
+
+/* Enhanced Glass Effect Form Container */
+.form {
+    max-width: 800px;
+    margin: 4rem auto 2rem auto;
+    padding: 3rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 25px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2), 0 15px 25px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    animation: formSlideIn 0.8s ease-out;
+    position: relative;
+    overflow: hidden;
+}
+
+.form::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #3498db, #2980b9, #3498db);
+    animation: borderGlow 3s linear infinite;
+}
+
+/* Form Groups with Icons */
+.form-group {
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.form-group label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+    color: #fff;
+    font-size: 1.1rem;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
+
+.form-group label i {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+    color: #3498db;
+    text-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 1.2rem 1.5rem;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 15px;
     font-size: 1rem;
-}
-
-.form-group input, 
-.form-group textarea, 
-.form-group select { 
-    width: 100%; 
-    padding: 1rem; 
-    border: 1px solid rgba(0, 86, 179, 0.3); 
-    border-radius: 10px; 
-    font-size: 1rem; 
     font-family: inherit;
     transition: all 0.3s ease;
-    background: rgba(255, 255, 255, 0.6);
-    color: #333;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    position: relative;
 }
 
 .form-group input::placeholder,
+.form-group select::placeholder,
 .form-group textarea::placeholder {
-    color: #666;
+    color: rgba(255, 255, 255, 0.6);
     font-size: 0.95rem;
 }
 
-.form-group input:focus, 
-.form-group textarea:focus, 
-.form-group select:focus { 
-    outline: none; 
-    border-color: #007bff; 
-    box-shadow: 0 0 10px rgba(0,123,255,0.35); 
-    background: #fff;
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 20px rgba(52, 152, 219, 0.3), 0 5px 15px rgba(0, 0, 0, 0.1);
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
 }
 
-/* Button */
-.btn.primary { 
-    display: block; 
-    width: 100%; 
-    margin-top: 1.5rem; 
+/* Enhanced Button */
+.btn.primary {
+    display: block;
+    width: 100%;
+    margin-top: 2rem;
     text-align: center;
-    padding: 1rem;
-    background: linear-gradient(135deg, #007bff, #0056b3);
+    padding: 1.3rem;
+    background: linear-gradient(135deg, #3498db, #2980b9);
     color: #fff;
-    font-weight: 600;
-    font-size: 1.05rem;
+    font-weight: 700;
+    font-size: 1.1rem;
     border: none;
-    border-radius: 10px;
+    border-radius: 15px;
     cursor: pointer;
     transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
 }
 
-.btn.primary:hover { 
-    background: linear-gradient(135deg, #0056b3, #0041a3);
+.btn.primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+    transition: left 0.5s;
+}
+
+.btn.primary:hover::before {
+    left: 100%;
+}
+
+.btn.primary:hover {
+    background: linear-gradient(135deg, #2980b9, #21618c);
     transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(52, 152, 219, 0.4);
 }
 
-/* Success / Error Message */
-.message { 
-    margin-top: 1rem; 
-    padding: 1rem; 
-    border-radius: 10px; 
-    text-align: center; 
-    display: none; 
-    font-weight: 500;
+/* Enhanced Messages */
+.message {
+    margin-top: 1.5rem;
+    padding: 1.2rem;
+    border-radius: 15px;
+    text-align: center;
+    display: none;
+    font-weight: 600;
+    animation: messageSlideIn 0.5s ease-out;
 }
 
 .message.success {
-    background: #d4edda; 
-    color: #155724;
+    background: linear-gradient(135deg, #27ae60, #229954);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.3);
 }
 
 .message.error {
-    background: #f8d7da; 
-    color: #721c24;
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.3);
 }
 
-.form-subtitle {
-    text-align: center;
-    font-size: 1.1rem;
-    color: #555;
-    margin-bottom: 1.8rem;
-    font-style: italic;
-}
-
-.form-group select {
-    appearance: none;
-    background: rgba(255, 255, 255, 0.6) 
-                url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath d='M2 4l4 4 4-4z' fill='%230056b3'/%3E%3C/svg%3E") 
-                no-repeat right 0.75rem center;
-    background-size: 12px;
-    padding-right: 2rem;
-    color: #333;
-}
-
-/* Animation */
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(25px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeInUp {
+/* Animations */
+@keyframes formSlideIn {
     from {
         opacity: 0;
-        transform: translateY(30px);
+        transform: translateY(30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes titleGlow {
+    from {
+        text-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+    to {
+        text-shadow: 0 4px 15px rgba(0,0,0,0.4), 0 0 20px rgba(52, 152, 219, 0.3);
+    }
+}
+
+@keyframes borderGlow {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+@keyframes messageSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
     }
     to {
         opacity: 1;
@@ -151,57 +243,59 @@
     }
 }
 
-@keyframes fadeInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-@keyframes fadeInRight {
-    from {
-        opacity: 0;
-        transform: translateX(30px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
-}
-
-/* Text Animations for Teacher Page */
-.form-title {
-    animation: fadeInUp 1s ease-out 0.2s both;
-    opacity: 0;
-}
-
-.form-subtitle {
-    animation: fadeInUp 1s ease-out 0.4s both;
-    opacity: 0;
-}
-
-.form-group label {
-    animation: fadeInLeft 1s ease-out 0.6s both;
-    opacity: 0;
-}
-
-.btn.primary {
-    animation: fadeInRight 1s ease-out 0.8s both;
-    opacity: 0;
-}
-
-/* Responsive */
+/* Responsive Design */
 @media (max-width: 768px) {
-    .form { padding: 2rem; margin: 2rem 1rem; }
-    .form-title { font-size: 1.8rem; }
+    .form {
+        padding: 2rem;
+        margin: 2rem 1rem 1rem 1rem;
+        border-radius: 20px;
+    }
+
+    .form-title {
+        font-size: 2.2rem;
+    }
+
+    .form-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .progress-step {
+        width: 30px;
+    }
 }
 
 @media (max-width: 480px) {
-    .form { padding: 1.2rem; margin: 1.5rem 1rem; }
-    .form-title { font-size: 1.5rem; }
-    .btn.primary { font-size: 0.9rem; padding: 0.8rem; }
+    .form {
+        padding: 1.5rem;
+        margin: 1.5rem 0.5rem 1rem 0.5rem;
+    }
+
+    .form-title {
+        font-size: 1.8rem;
+        letter-spacing: 1px;
+    }
+
+    .form-subtitle {
+        font-size: 1rem;
+    }
+
+    .btn.primary {
+        font-size: 1rem;
+        padding: 1rem;
+    }
+
+    .form-group label {
+        font-size: 1rem;
+    }
 }
+
+/* Form Field Icons */
+.icon-user::before { content: 'Ì±§'; }
+.icon-phone::before { content: 'Ì≥±'; }
+.icon-email::before { content: '‚úâÔ∏è'; }
+.icon-location::before { content: 'Ì≥ç'; }
+.icon-graduation::before { content: 'Ìæì'; }
+.icon-book::before { content: 'Ì≥ö'; }
+.icon-briefcase::before { content: 'Ì≤º'; }
+.icon-building::before { content: 'Ìø¢'; }
+.icon-map::before { content: 'Ì∑∫Ô∏è'; }

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/contact-enhanced.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="index.html">
+        <img src="../images/logo3.jpg" alt="HomeTuition Logo" class="logo-img">
+      </a>
+    </div>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="student.html">Student</a></li>
+      <li><a href="teacher.html">Teacher</a></li>
+      <li><a href="contact-enhanced.html" class="active">Contact</a></li>
+      <li><a href="adminlogin.html">Admin</a></li>
+    </ul>
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </nav>
+
+  <main>
+    <h2 class="form-title">📞 Get in Touch</h2>
+
+    <form class="contact-form" id="contact-form">
+      <div class="form-group">
+        <label><i class="icon-user"></i>Name</label>
+        <input type="text" id="contact-name" placeholder="Your Name" required>
+      </div>
+
+      <div class="form-group">
+        <label><i class="icon-email"></i>Email</label>
+        <input type="email" id="contact-email" placeholder="Your Email" required>
+      </div>
+
+      <div class="form-group">
+        <label><i class="icon-message"></i>Message</label>
+        <textarea id="contact-message" placeholder="Your Message" rows="6" required maxlength="500"></textarea>
+        <div class="message-counter">
+          <span class="counter-text">Character count:</span>
+          <span class="counter-number" id="char-count">0/500</span>
+        </div>
+      </div>
+
+      <button type="submit" class="btn primary">🚀 Send Message</button>
+      <div id="form-message" class="message"></div>
+    </form>
+
+    <!-- Enhanced Owner Contact Details -->
+    <section class="owner-contact">
+      <h3>📍 Contact Details</h3>
+      <p><i class="contact-icon-company"></i><strong>True Learning Home Tuition</strong></p>
+      <p><i class="contact-icon-phone"></i><strong>Phone:</strong> +91 9135335516</p>
+      <p><i class="contact-icon-email"></i><strong>Email:</strong> truelearningpatna@gmail.com</p>
+      <p><i class="contact-icon-location"></i><strong>Address:</strong> 1st Floor, East of RPS Residential School, Opposite Bhawani City Appartment, RPS More Bailey Road Patna, Bihar, India</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 HomeTuition | Made with ❤️</p>
+  </footer>
+
+  <script>
+    // Character counter for message
+    document.getElementById('contact-message').addEventListener('input', function() {
+      const count = this.value.length;
+      const counter = document.getElementById('char-count');
+      counter.textContent = count + '/500';
+
+      // Change color based on character count
+      if (count > 450) {
+        counter.style.color = '#ff6b6b';
+      } else if (count > 400) {
+        counter.style.color = '#ffd93d';
+      } else {
+        counter.style.color = 'rgba(255, 255, 255, 0.7)';
+      }
+    });
+
+    document.getElementById('contact-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('contact-name').value.trim();
+      const email = document.getElementById('contact-email').value.trim();
+      const message = document.getElementById('contact-message').value.trim();
+
+      if (name.length < 2) {
+        showMessage("Name must be at least 2 characters long.", "error");
+        return;
+      }
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showMessage("Please enter a valid email address.", "error");
+        return;
+      }
+
+      if (message.length < 10) {
+        showMessage("Message must be at least 10 characters long.", "error");
+        return;
+      }
+
+      const data = { name, email, message };
+
+      try {
+        const res = await fetch('https://home-tuition-truelearning-2hcl.onrender.com/api/contact', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        const json = await res.json();
+        if (res.ok) {
+          showMessage(json.message || "Thank you for your message! We'll get back to you soon.", "success");
+          e.target.reset();
+          document.getElementById('char-count').textContent = '0/500';
+        } else {
+          showMessage(json.message || 'Error sending message', "error");
+        }
+      } catch (err) {
+        console.error(err);
+        showMessage('Server error. Please try again later.', "error");
+      }
+    });
+
+    function showMessage(text, type) {
+      const messageDiv = document.getElementById('form-message');
+      messageDiv.textContent = text;
+      messageDiv.className = `message ${type}`;
+      messageDiv.style.display = 'block';
+
+      setTimeout(() => {
+        messageDiv.style.display = 'none';
+      }, 6000);
+    }
+  </script>
+
+  <script src="../javascript/script.js"></script>
+
+</body>
+
+</html>

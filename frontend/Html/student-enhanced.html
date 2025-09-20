@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Registration</title>
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/student-enhanced.css" />
+</head>
+<body>
+ <nav class="navbar">
+  <div class="logo">
+    <a href="index.html">
+      <img src="../images/logo3.jpg" alt="HomeTuition Logo" class="logo-img" />
+    </a>
+  </div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="student-enhanced.html" class="active">Student</a></li>
+    <li><a href="teacher.html">Teacher</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="adminlogin.html">Admin</a></li>
+  </ul>
+  <div class="hamburger" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</nav>
+
+  <main>
+    <h2 class="form-title">🎓 Student Registration Form</h2>
+    <p class="form-subtitle">Find the best teachers near your location in Patna.</p>
+
+    <!-- Progress Indicator -->
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-step active"></div>
+        <div class="progress-step"></div>
+        <div class="progress-step"></div>
+        <div class="progress-step"></div>
+        <div class="progress-step"></div>
+        <div class="progress-step"></div>
+        <div class="progress-step"></div>
+      </div>
+    </div>
+
+    <form class="form" id="student-form">
+      <!-- Full Name -->
+      <div class="form-group">
+        <label><i class="icon-user"></i>Full Name</label>
+        <input type="text" id="student-name" placeholder="Enter your name" required minlength="3"/>
+        <small class="hint">Enter your full name (at least 3 characters)</small>
+      </div>
+
+      <!-- Phone -->
+      <div class="form-group">
+        <label><i class="icon-phone"></i>Phone</label>
+        <input type="text" id="student-phone" placeholder="Enter your phone number" pattern="^[6-9]\d{9}$" required />
+        <small class="hint">10-digit Indian phone number (must start with 6,7,8,9)</small>
+      </div>
+
+      <!-- Class -->
+      <div class="form-group">
+        <label><i class="icon-graduation"></i>Class</label>
+        <input type="text" id="student-class" placeholder="Enter your class" pattern="^\d{1,2}$" required />
+        <small class="hint">Enter class between 1 to 12</small>
+      </div>
+
+      <!-- School Name -->
+      <div class="form-group">
+        <label><i class="icon-school"></i>School Name</label>
+        <input type="text" id="student-school" placeholder="Enter your school name" required />
+        <small class="hint">Enter the full name of your school</small>
+      </div>
+
+      <!-- Home Address -->
+      <div class="form-group">
+        <label><i class="icon-location"></i>Home Address</label>
+        <input type="text" id="student-address" placeholder="Enter your home address" required />
+        <small class="hint">Enter your complete home address</small>
+      </div>
+
+      <!-- Subjects -->
+      <div class="form-group">
+        <label><i class="icon-book"></i>Subjects</label>
+        <input type="text" id="student-subjects" placeholder="Enter subjects (comma separated)" required />
+        <small class="hint">Example: Math, Science, English</small>
+      </div>
+
+      <!-- Salary of Teacher -->
+      <div class="form-group">
+        <label><i class="icon-money"></i>Salary of Teacher</label>
+        <input type="number" id="student-salary" placeholder="Enter your teacher's salary" step="1" min="0" max="100000" required />
+        <small class="hint">Enter salary in numbers (positive, 0 to 100000)</small>
+      </div>
+
+      <button type="submit" class="btn primary">🚀 Register Now</button>
+      <div id="form-message" class="message"></div>
+    </form>
+  </main>
+
+  <footer>
+    <p>© 2025 HomeTuition | Made with ❤️</p>
+  </footer>
+
+<script>
+  document.getElementById('student-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById('student-name').value.trim();
+    const phone = document.getElementById('student-phone').value.trim();
+    const className = document.getElementById('student-class').value.trim();
+    const schoolName = document.getElementById('student-school').value.trim();
+    const homeAddress = document.getElementById('student-address').value.trim();
+    const subjects = document.getElementById('student-subjects').value.trim();
+    const teacherSalary = parseInt(document.getElementById('student-salary').value);
+
+    if (name.length < 3) {
+      showMessage("Full Name must be at least 3 characters long.", "error");
+      return;
+    }
+
+    const phoneRegex = /^[6-9]\d{9}$/;
+    if (!phoneRegex.test(phone)) {
+      showMessage("Invalid phone number. Must be a 10-digit Indian number starting with 6-9.", "error");
+      return;
+    }
+
+    const classRegex = /^\d{1,2}$/;
+    if (!classRegex.test(className) || className < 1 || className > 12) {
+      showMessage("Class must be a number between 1 and 12.", "error");
+      return;
+    }
+
+    if (teacherSalary < 0 || teacherSalary > 100000) {
+      showMessage("Salary must be between 0 and 100000.", "error");
+      return;
+    }
+
+    const data = { name, phone, className, schoolName, homeAddress, subjects, teacherSalary };
+
+    try {
+      const res = await fetch('https://home-tuition-truelearning-2hcl.onrender.com/api/register/student', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+
+      const json = await res.json();
+      if (res.ok) {
+        showMessage(json.message, "success");
+        e.target.reset();
+      } else {
+        showMessage(json.message || 'Error registering student', "error");
+      }
+    } catch (err) {
+      console.error(err);
+      showMessage('Server error', "error");
+    }
+  });
+
+  function showMessage(text, type) {
+    const messageDiv = document.getElementById('form-message');
+    messageDiv.textContent = text;
+    messageDiv.className = `message ${type}`;
+    messageDiv.style.display = 'block';
+
+    setTimeout(() => {
+      messageDiv.style.display = 'none';
+    }, 5000);
+  }
+</script>
+
+<script src="../javascript/script.js"></script>
+</body>
+</html>

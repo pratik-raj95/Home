@@ -469,3 +469,72 @@ table th {
   opacity: 0;
 }
 
+
+
+
+/* ================= COLORFUL ANIMATED BACKGROUND ================= */
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  min-height: 100vh;
+  background: linear-gradient(-45deg, #6a11cb, #2575fc, #42e695, #f97316);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Gradient Animation */
+@keyframes gradientBG {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+
+
+/* ================= COLORFUL GLASS EFFECT FOR ADMIN LOGIN ================= */
+.admin-login-container {
+  background: rgba(255, 255, 255, 0.1); /* very transparent for colorful effect */
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 16px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+  padding: 2rem;
+  max-width: 400px;
+  margin: 12vh auto;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-clip: padding-box;
+  animation: colorfulGlow 3s ease-in-out infinite alternate;
+}
+
+/* ================= COLORFUL GLASS EFFECT FOR CHANGE PASSWORD MODAL ================= */
+#passwordModal {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  width: 400px;
+  max-width: 90%;
+  padding: 2rem 1.5rem;
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: colorfulGlow 3s ease-in-out infinite alternate;
+}
+
+/* ================= COLORFUL ANIMATION ================= */
+@keyframes colorfulGlow {
+  0% { box-shadow: 0 8px 30px rgba(106,17,203,0.5), 0 0 50px rgba(37,117,252,0.3); }
+  50% { box-shadow: 0 8px 30px rgba(37,117,252,0.5), 0 0 50px rgba(106,17,203,0.3); }
+  100% { box-shadow: 0 8px 30px rgba(106,17,203,0.5), 0 0 50px rgba(37,117,252,0.3); }
+}
+

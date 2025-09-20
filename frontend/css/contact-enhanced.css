@@ -1,4 +1,4 @@
-/* ===== Enhanced Student Form Additions ===== */
+/* ===== Enhanced Contact Form ===== */
 
 /* Modern Gradient Background */
 body {
@@ -15,58 +15,24 @@ body {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    margin-bottom: 0.5rem;
+    margin-bottom: 2rem;
     font-weight: 900;
     letter-spacing: 2px;
     text-shadow: 0 4px 8px rgba(0,0,0,0.1);
     animation: titleGlow 3s ease-in-out infinite alternate;
 }
 
-.form-subtitle {
-    text-align: center;
-    font-size: 1.3rem;
-    color: rgba(255, 255, 255, 0.9);
-    margin-bottom: 2.5rem;
-    font-weight: 500;
-    text-shadow: 0 2px 4px rgba(0,0,0,0.2);
-}
-
-/* Progress Indicator */
-.progress-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 2rem;
-}
-
-.progress-bar {
-    display: flex;
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 25px;
-    padding: 4px;
-    gap: 4px;
-}
-
-.progress-step {
-    width: 40px;
-    height: 8px;
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 4px;
-    transition: all 0.3s ease;
-}
-
-.progress-step.active {
-    background: #fff;
-    box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
-}
-
-/* Enhanced Glass Effect Form Container */
-.form {
-    max-width: 700px;
-    margin: 4rem auto 2rem auto;
+/* Enhanced Contact Form Container */
+.contact-form {
+    max-width: 600px;
+    margin: 2rem auto;
     padding: 3rem;
     background: rgba(255, 255, 255, 0.15);
     border-radius: 25px;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1), 0 15px 25px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.1),
+        0 15px 25px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
     border: 1px solid rgba(255, 255, 255, 0.2);
@@ -75,7 +41,7 @@ body {
     overflow: hidden;
 }
 
-.form::before {
+.contact-form::before {
     content: '';
     position: absolute;
     top: 0;
@@ -87,12 +53,12 @@ body {
 }
 
 /* Form Groups with Icons */
-.form-group {
+.contact-form .form-group {
     margin-bottom: 2rem;
     position: relative;
 }
 
-.form-group label {
+.contact-form label {
     display: flex;
     align-items: center;
     margin-bottom: 0.8rem;
@@ -102,15 +68,15 @@ body {
     text-shadow: 0 1px 2px rgba(0,0,0,0.2);
 }
 
-.form-group label i {
+.contact-form label i {
     margin-right: 0.5rem;
     font-size: 1.2rem;
     color: #ffd700;
     text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
 }
 
-.form-group input,
-.form-group select {
+.contact-form input,
+.contact-form textarea {
     width: 100%;
     padding: 1.2rem 1.5rem;
     border: 2px solid rgba(255, 255, 255, 0.2);
@@ -123,42 +89,64 @@ body {
     position: relative;
 }
 
-.form-group input::placeholder {
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
     color: rgba(255, 255, 255, 0.6);
     font-size: 0.95rem;
 }
 
-.form-group input:focus,
-.form-group select:focus {
+.contact-form input:focus,
+.contact-form textarea:focus {
     outline: none;
     border-color: #ffd700;
-    box-shadow: 0 0 20px rgba(255, 215, 0, 0.3), 0 5px 15px rgba(0, 0, 0, 0.1);
+    box-shadow:
+        0 0 20px rgba(255, 215, 0, 0.3),
+        0 5px 15px rgba(0, 0, 0, 0.1);
     background: rgba(255, 255, 255, 0.2);
     transform: translateY(-2px);
 }
 
-/* Enhanced Button */
-.btn.primary {
-    display: block;
-    width: 100%;
-    margin-top: 2rem;
-    text-align: center;
-    padding: 1.3rem;
+/* Character Counter for Message */
+.message-counter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.counter-text {
+    font-style: italic;
+}
+
+.counter-number {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.2rem 0.5rem;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+/* Enhanced Submit Button */
+.contact-form button {
     background: linear-gradient(135deg, #ffd700, #ffed4e);
     color: #333;
-    font-weight: 700;
-    font-size: 1.1rem;
+    padding: 1.3rem;
     border: none;
     border-radius: 15px;
     cursor: pointer;
+    font-weight: 700;
+    font-size: 1.1rem;
+    width: 100%;
     transition: all 0.3s ease;
     text-transform: uppercase;
     letter-spacing: 1px;
     position: relative;
     overflow: hidden;
+    margin-top: 1rem;
 }
 
-.btn.primary::before {
+.contact-form button::before {
     content: '';
     position: absolute;
     top: 0;
@@ -169,15 +157,71 @@ body {
     transition: left 0.5s;
 }
 
-.btn.primary:hover::before {
+.contact-form button:hover::before {
     left: 100%;
 }
 
-.btn.primary:hover {
+.contact-form button:hover {
     background: linear-gradient(135deg, #ffed4e, #ffd700);
     transform: translateY(-3px);
     box-shadow: 0 10px 25px rgba(255, 215, 0, 0.4);
 }
+
+/* Enhanced Owner Contact Details */
+.owner-contact {
+    max-width: 600px;
+    margin: 3rem auto 2rem;
+    background: rgba(255,255,255,0.15);
+    padding: 2.5rem;
+    border-radius: 25px;
+    box-shadow:
+        0 20px 40px rgba(0, 0, 0, 0.1),
+        0 15px 25px rgba(0, 0, 0, 0.05);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255,255,255,0.2);
+    text-align: center;
+    animation: contactSlideIn 1s ease-out 0.5s both;
+}
+
+.owner-contact h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1.5rem;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    background: linear-gradient(135deg, #ffd700, #ffed4e);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.owner-contact p {
+    font-size: 1.1rem;
+    margin: 0.8rem 0;
+    color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+.owner-contact strong {
+    color: #ffd700;
+    margin-right: 0.5rem;
+    font-weight: 700;
+}
+
+.owner-contact p i {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+    color: #ffd700;
+}
+
+/* Contact Method Icons */
+.contact-icon-phone::before { content: "üì±"; }
+.contact-icon-email::before { content: "‚úâÔ∏è"; }
+.contact-icon-location::before { content: "üìç"; }
+.contact-icon-company::before { content: "üè¢"; }
 
 /* Enhanced Messages */
 .message {
@@ -202,15 +246,6 @@ body {
     border: 1px solid rgba(255,255,255,0.3);
 }
 
-/* Hint Text */
-.hint {
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.7);
-    margin-top: 0.5rem;
-    display: block;
-    font-style: italic;
-}
-
 /* Animations */
 @keyframes formSlideIn {
     from {
@@ -220,6 +255,17 @@ body {
     to {
         opacity: 1;
         transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes contactSlideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
 
@@ -250,55 +296,63 @@ body {
 
 /* Responsive Design */
 @media (max-width: 768px) {
-    .form {
-        padding: 2rem;
-        margin: 2rem 1rem 1rem 1rem;
-        border-radius: 20px;
-    }
-
     .form-title {
         font-size: 2.2rem;
     }
 
-    .form-subtitle {
-        font-size: 1.1rem;
+    .contact-form {
+        padding: 2rem;
+        margin: 2rem 1rem;
     }
 
-    .progress-step {
-        width: 30px;
+    .contact-form button {
+        font-size: 1rem;
+        padding: 1.1rem;
+    }
+
+    .owner-contact {
+        padding: 2rem 1.5rem;
+        margin: 2rem 1rem;
+    }
+
+    .owner-contact h3 {
+        font-size: 1.5rem;
+    }
+
+    .owner-contact p {
+        font-size: 1rem;
+        flex-direction: column;
+        text-align: center;
     }
 }
 
 @media (max-width: 480px) {
-    .form {
-        padding: 1.5rem;
-        margin: 1.5rem 0.5rem 1rem 0.5rem;
-    }
-
     .form-title {
         font-size: 1.8rem;
         letter-spacing: 1px;
     }
 
-    .form-subtitle {
-        font-size: 1rem;
+    .contact-form {
+        padding: 1.5rem;
+        margin: 1.5rem 0.5rem;
     }
 
-    .btn.primary {
-        font-size: 1rem;
+    .contact-form input,
+    .contact-form textarea {
+        font-size: 0.9rem;
         padding: 1rem;
     }
 
-    .form-group label {
-        font-size: 1rem;
+    .contact-form button {
+        font-size: 0.95rem;
+        padding: 1rem;
+    }
+
+    .owner-contact h3 {
+        font-size: 1.3rem;
+    }
+
+    .owner-contact p {
+        font-size: 0.9rem;
     }
 }
-
-/* Form Field Icons */
-.icon-user::before { content: 'Ì±§'; }
-.icon-phone::before { content: 'Ì≥±'; }
-.icon-graduation::before { content: 'Ìæì'; }
-.icon-school::before { content: 'Ìø´'; }
-.icon-location::before { content: 'Ì≥ç'; }
-.icon-book::before { content: 'Ì≥ö'; }
-.icon-money::before { content: 'Ì≤∞'; }
