@@ -10,9 +10,16 @@
     "install-backend": "cd backend && npm install",
     "install-all": "npm install && cd backend && npm install"
   },
-  "keywords": ["tuition", "management", "mongodb", "express", "react"],
+  "keywords": [
+    "tuition",
+    "management",
+    "mongodb",
+    "express",
+    "react"
+  ],
   "author": "",
   "license": "ISC",
-  "devDependencies": {},
-  "dependencies": {}
+  "dependencies": {
+    "dotenv": "^17.2.2"
+  }
 }
